@@ -18,24 +18,8 @@
         </nav>
     </header>
 
-    <section id="oferta">
-        <h2>Nasza Oferta</h2>
-        <p>Oferujemy profesjonalne występy skrzypka na różnorodnych wydarzeniach:</p>
-        <ul>
-            <li>Wesela</li>
-            <li>Przyjęcia urodzinowe</li>
-            <li>Konferencje</li>
-            <li>Eventy firmowe</li>
-            <li>Kameralne koncerty</li>
-        </ul>
-    </section>
-
-    <section id="opinie">
-        <h2>Opinie Klientów</h2>
-        <blockquote>"Występ skrzypka na naszym weselu był strzałem w dziesiątkę!" – Anna i Michał</blockquote>
-        <blockquote>"Muzyka na żywo dodała magii naszej konferencji." – Firma XYZ</blockquote>
-        </section>
-
+    <div id="kontent"></div>
+    
         <footer>
     <div class="footer-content">
         <p>&copy; 2024 Mateusz Śmidoda. Wszelkie prawa zastrzeżone.</p>

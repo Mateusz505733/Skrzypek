@@ -44,3 +44,16 @@ blockquote {
     margin: 10px 0;
     padding-left: 10px;
 }
+
+footer {
+    background-color: #333;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    margin-top: 6.5%;
+}
+
+.footer-content {
+    max-width: 800px;
+    margin: auto;
+}
