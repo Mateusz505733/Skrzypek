@@ -2,7 +2,7 @@
 session_start(); // Rozpoczynamy sesję
 
 // Domyślna wartość zmiennej file
-$file = 'oferta.php';
+$file = 'index.php';
 
 // Sprawdzamy, czy formularz został wysłany
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -13,13 +13,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Zapisujemy zmodyfikowaną treść do pliku
-    $content = $_POST['content'];
-    
-    // Używamy wyrażenia regularnego do zastąpienia zawartości div'a o id "kontent"
-    $fullContent = file_get_contents($file);
-    $newContent = preg_replace('/<div id="kontent">.*?<\/div>/s', '<div id="kontent">' . $content . '</div>', $fullContent);
-    
-    file_put_contents($file, $newContent);
+    if (isset($_POST['content'])) {
+        $content = $_POST['content'];
+        
+        // Używamy wyrażenia regularnego do zastąpienia zawartości div'a o id "kontent"
+        $fullContent = file_get_contents($file);
+        if ($fullContent === false) {
+            die("Błąd podczas odczytu pliku: $file");
+        }
+
+        $newContent = preg_replace('/<div id="kontent">.*?<\/div>/s', '<div id="kontent">' . $content . '</div>', $fullContent);
+        
+        if (file_put_contents($file, $newContent) === false) {
+            die("Błąd podczas zapisu do pliku: $file");
+        }
+    }
 }
 
 // Sprawdzamy, czy w sesji jest zapisany plik
@@ -37,6 +45,8 @@ if (file_exists($file)) {
     
     // Sprawdzamy, czy znaleziono zawartość
     $existingContent = isset($matches[1]) ? trim($matches[1]) : '';
+} else {
+    die("Plik nie istnieje: $file");
 }
 ?>
 
@@ -53,21 +63,20 @@ if (file_exists($file)) {
             selector: '#editor',
             plugins: 'lists link image table code',
             toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | code',
-            menubar: false,
+            menubar: true,
             height: 300
         });
     </script>
 </head>
 <body>
     <div class="container">
-        <h1>Edytor Treści - Oferta</h1>
 
         <!-- Suwak wyboru pliku -->
         <form method="post" id="fileForm">
             <label for="file_option">Wybierz plik:</label>
             <select id="file_option" name="file_option" onchange="document.getElementById('fileForm').submit()">
-                <option value="index.html" <?php echo ($file == 'index.php') ? 'selected' : ''; ?>>Index</option>
-                <option value="galeria.html" <?php echo ($file == 'galeria.php') ? 'selected' : ''; ?>>Galeria</option>
+                <option value="index.php" <?php echo ($file == 'index.php') ? 'selected' : ''; ?>>Główna</option>
+                <option value="galeria.php" <?php echo ($file == 'galeria.php') ? 'selected' : ''; ?>>Galeria</option>
                 <option value="oferta.php" <?php echo ($file == 'oferta.php') ? 'selected' : ''; ?>>Oferta</option>
             </select>
         </form>
